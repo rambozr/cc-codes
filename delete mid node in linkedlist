@@ -1,8 +1,6 @@
-
 #include <iostream>
 using namespace std;
 
-// Node structure
 struct Node {
     int data;
     Node* next;
@@ -12,10 +10,8 @@ struct Node {
     }
 };
 
-// Function to find and delete middle node
 void deleteMiddle(Node*& head) {
     if (head == NULL || head->next == NULL) {
-        // If list is empty or has one node, delete it
         delete head;
         head = NULL;
         return;
@@ -23,21 +19,18 @@ void deleteMiddle(Node*& head) {
 
     Node* slow = head;
     Node* fast = head;
-    Node* prev = NULL;
 
-    // Move slow by 1 and fast by 2
-    while (fast != NULL && fast->next != NULL) {
-        prev = slow;
+    while (fast != NULL && fast->next != NULL && fast->next->next != NULL) {
         slow = slow->next;
         fast = fast->next->next;
     }
 
-    // Delete middle node (slow)
-    prev->next = slow->next;
-    delete slow;
+    Node* temp = slow->next;
+    slow->data = temp->data;
+    slow->next = temp->next;
+    delete temp;
 }
 
-// Utility function to print linked list
 void printList(Node* head) {
     while (head != NULL) {
         cout << head->data << " ";
@@ -47,7 +40,6 @@ void printList(Node* head) {
 }
 
 int main() {
-    // Create linked list: 1 -> 2 -> 3 -> 4 -> 5
     Node* head = new Node(1);
     head->next = new Node(2);
     head->next->next = new Node(3);

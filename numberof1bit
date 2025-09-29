@@ -1,0 +1,20 @@
+```cpp
+#include <iostream>
+using namespace std;
+
+int countBits(unsigned int n) {
+    int count = 0;
+    while (n > 0) {
+        if (n & 1)   // check last bit
+            count++;
+        n = n >> 1;  // right shift
+    }
+    return count;
+}
+
+int main() {
+    unsigned int n = 29; // binary: 11101 → has 4 ones
+    cout << "Number of 1 bits = " << countBits(n) << endl;
+    return 0;
+}
+```
